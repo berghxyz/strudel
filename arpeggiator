@@ -1,0 +1,80 @@
+setcpm(126/4) 
+
+
+
+// const arpeggiator = cat([
+//   "{d4 bb3 eb3 d3 bb2 eb2}%16",
+//   "{c4 bb3 f3 c3 bb2 f2}%16",
+//   "{d4 bb3 g3 d3 bb2 g2}%16",
+//   "{c4 bb3 f3 c3 bb2 f2}%16"
+// ]);
+
+
+const arpeggiator = cat([
+  "{d4 bb3 eb4 d3 bb4 eb3}%16", 
+  "{c4 bb3 f4 c3 bb4 f3}%16",   
+  "{d4 bb3 g4 d3 bb4 g3}%16",   
+  "{c4 bb3 f4 c3 bb4 f3}%16"    
+]);
+
+const arpeggiator2 = cat([
+  "{bb4 eb3}%4", 
+  "{bb4 f3}%4",   
+  "{bb4 g3}%4",   
+  "{bb4 f3}%4"    
+]);
+
+
+
+// const arpeggiator = cat([
+//   "{f4 d4 bb3 g3 d3 bb2}%16",  
+//   "{g4 e4 c4 g3 c3 g2}%16",    
+//   "{a4 f4 d4 a3 d3 a2}%16",    
+//   "{g4 e4 c4 g3 c3 g2}%16"     
+// ]);
+
+
+stack(
+
+
+  s("bd*4")
+      .duckorbit("2:3")
+      .duckattack(0.2)
+      .duckdepth("0.8:0.5")
+      ._scope()
+  
+   ,s("~ cp ~ cp")
+      .gain(0.3)
+      .decay(0.1)
+      ._scope(),note("<e1 eb1 g1 e1>".fast(2)).sound("sawtooth").lpf(600)._pianoroll()
+  
+   ,s("hh!16")
+    .gain("[1 0.5 0.5 0.5 0 0 0.5]")
+    ._scope()
+
+  // ,note(arpeggiator2.slow(8))
+  //   .sound("supersaw")
+  //   .lpf(600)
+  //   .delay(0.4)
+  //   .lpenv(slider(1.25,1.25,6)) 
+  //   .room(0.6)
+  //   .lpq(5)
+  //   .mul(2)
+  //   .gain(0.5)
+  //  ._pianoroll()
+  
+  ,note(arpeggiator.slow(4))
+    .sound("saw")
+    .decay(0.12).sustain(0)
+    .lpf(700)
+    .delay(0.4)
+    .room(0.6)
+    .lpq(5)
+    .mul(2)
+    .gain(0.8)
+   ._pianoroll()
+ 
+)
+
+.lpf(slider(9800, 100, 20000, 100))
+.lpq(slider(0, 0, 12, 0.5))
