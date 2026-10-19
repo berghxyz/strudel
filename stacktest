@@ -1,0 +1,41 @@
+setcpm(126/16) // 126 BPM, 4 bars per cycle
+
+stack(
+    // 1. KICK - four on the floor; ducks orbits 2 & 3 (the "pump")
+    s("bd*16")
+      .duckorbit("2:3")
+      .duckattack(0.2)
+      .duckdepth("0.8:0.5")
+
+    // 2. CLAP - beats 2 & 4
+      // ,s("~ cp ~ cp!4").gain(0.8)
+
+    // 3. HATS - closed on the beat, open on the "and"
+      // ,s("hh oh!16").gain(0.5)
+
+    // 4. BASS (sawtooth) - 8th-note root pulses: C - Ab - Bb - F
+      ,note("c2*8 ab1*8 bb1*8 f1*8")
+      .sound("sawtooth")
+      .lpf(700).lpq(3)
+      .attack(0.005).decay(0.12).sustain(0).release(0.05)
+      .gain(0.85)
+
+    // 5. PAD (sawtooth) - full chords, one per bar
+      ,note("<c3 eb3 g3 c4> <ab2 c3 eb3 ab3> <bb2 d3 f3 bb3> <f3 a3 c4 f4>")
+      .sound("sawtooth")
+      .hpf(250).lpf(2500)
+      .attack(0.1).decay(0.4).sustain(0.75).release(0.5)
+      .gain(0.3)
+      .room(0.5).rsize(3)
+      .phaser(1.5)
+      .orbit(2)
+
+    // 6. ARP (sawtooth) - 8th-note arps, dotted-8th echo
+      // ,note("c4 g4 c5 g4 c4 g4 c5 g4 ab3 eb4 ab4 eb4 ab3 eb4 ab4 eb4 bb3 f4 bb4 f4 bb3 f4 bb4 f4 f4 c5 f5 c5 f4 c5 f5 c5")
+      // .sound("sawtooth")
+      // .lpf(3000)
+      // .attack(0.001).decay(0.15).sustain(0).release(0.05)
+      // .delay(0.35).delaytime(0.36).delayfeedback(0.4)
+      // .gain(0.25)
+      // .orbit(3)
+  )
